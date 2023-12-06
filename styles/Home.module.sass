@@ -1,4 +1,139 @@
 @import './designSystem'
 
 .home
+  display: flex
+  flex-direction: column
+  gap: rem(52)
   padding: rem(50) 0
+
+  h1
+    display: flex
+    flex-direction: column
+
+    span
+      font-weight: 700
+
+      &[lang="ko"]
+        font-size: rem(36)
+        line-height: 1.52777778
+
+      &[lang="en"]
+        font-size: rem(24)
+        font-weight: 1.54166667
+        color: $hex-light
+
+  .summary
+    display: flex
+    flex-direction: column
+    gap: rem(27)
+
+    .description
+      display: flex
+      flex-direction: column
+      gap: rem(7)
+
+      p
+        font-size: rem(16)
+        line-height: 1.5625
+
+      .date
+        time, cite
+          font-size: rem(14)
+          line-height: 1
+
+        time::after
+          content: '•'
+          padding: 0 rem(5)
+          color: $hex-light
+
+    .languages
+      dl
+        display: flex
+
+      div
+        display: flex
+
+        &:last-of-type::before
+          content: '•'
+          padding: 0 rem(5)
+          color: $hex-light
+
+      dt
+        +screen-reader-only
+
+      dd
+        display: flex
+        gap: rem(2)
+
+        i
+          display: block
+          width: rem(16)
+          height: rem(16)
+
+        span
+          font-size: rem(16)
+          font-weight: 900
+          line-height: 1
+          color: $hex-black
+
+  .components
+    display: flex
+    flex-direction: column
+    gap: rem(27)
+
+    .primary
+      display: flex
+      flex-direction: column
+
+      h2
+        display: flex
+        align-items: flex-end
+        gap: rem(17)
+
+        span
+          font-weight: 700
+          line-height: 1
+
+          &[lang="ko"]
+            display: flex
+            align-items: flex-end
+            gap: rem(7)
+            font-size: rem(24)
+
+            i
+              display: block
+              width: rem(5)
+              height: rem(20)
+
+          &[lang="en"]
+            font-size: rem(16)
+            color: $hex-light
+
+    .secondary
+      display: flex
+      flex-direction: column
+      padding-top: rem(17)
+
+      h3
+        display: flex
+        align-items: flex-end
+        gap: rem(7)
+
+        span
+          font-weight: 400
+          line-height: 1
+
+          &[lang="ko"]
+            display: flex
+            align-items: flex-end
+            gap: rem(2)
+            font-size: rem(20)
+
+            i
+              display: block
+              width: rem(8)
+              height: rem(18)
+
+          &[lang="en"]
+            font-size: rem(14)
+            color: $hex-light
