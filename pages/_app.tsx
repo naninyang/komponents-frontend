@@ -19,6 +19,7 @@ const lato = Lato({
 const Container = styled.main({
   display: "flex",
   justifyContent: "center",
+  flex: 1,
   padding: `0 ${rem(25)}`,
 });
 
