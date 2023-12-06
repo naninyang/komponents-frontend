@@ -20,12 +20,28 @@ const Container = styled.footer({
       gap: rem(17),
     },
     "& a": {
+      transition: "all .4s cubic-bezier(.4,0,.2,1)",
+      position: "relative",
       display: "block",
       borderBottomWidth: "1px",
       borderBottomStyle: "solid",
       padding: `${rem(2)} 0`,
       fontSize: rem(14),
       color: hex.light,
+      "&:hover, &:focus": {
+        color: hex.white,
+        fontWeight: 700,
+        "&::after": {
+          content: "''",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          borderRadius: rem(2),
+          width: "100%",
+          height: rem(2),
+          backgroundColor: hex.white,
+        },
+      },
     },
     "& dl": {
       display: "flex",
@@ -80,7 +96,7 @@ export default function Footer() {
             <dd>Chloe Ariko</dd>
           </div>
           <div>
-            <dt>FrontEnd & Backend Developer</dt>
+            <dt>Frontend & Backend Developer</dt>
             <dd>Chloe Ariko</dd>
           </div>
         </dl>
