@@ -83,7 +83,7 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
           <h2>
             <Anchor href={`/article/${komp.id}`} scroll={false} shallow={true}>
               <span lang="ko">{komp.attributes.subject}</span>
-              {komp.attributes.subjectEng && <span lang="en">Using higher-order components</span>}
+              {komp.attributes.subjectEng && <span lang="en">{komp.attributes.subjectEng}</span>}
             </Anchor>
           </h2>
           <div className={styles.summary}>

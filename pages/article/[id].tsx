@@ -121,7 +121,7 @@ export default function Article() {
             <h2>
               <div>
                 <span lang="ko">{article.attributes.subject}</span>
-                {article.attributes.subjectEng && <span lang="en">Using higher-order components</span>}
+                {article.attributes.subjectEng && <span lang="en">{article.attributes.subjectEng}</span>}
               </div>
             </h2>
             <div className={styles.summary}>
