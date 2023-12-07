@@ -80,7 +80,7 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
             <div className={styles.descriptions}>
               <div className={styles.date}>
                 <time dateTime={komp.attributes.createdAt}>{FormatDate(komp.attributes.createdAt)}</time>
-                <cite>@Chloe Ariko</cite>
+                <cite>@ O612</cite>
               </div>
               <div className={styles.description}>{renderDescription(komp.attributes.description)}</div>
             </div>
