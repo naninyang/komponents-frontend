@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import styled from '@emotion/styled';
 import { icons } from '@/icons';
@@ -49,6 +50,12 @@ const Secondary = styled.i({
 });
 
 const Home: NextPage<HomeProps> = ({ komponents }) => {
+  const [sortedKomponents, setSortedKomponents] = useState<Komponent[]>([]);
+  useEffect(() => {
+    const sortedData = komponents.sort((a, b) => b.id - a.id);
+    setSortedKomponents(sortedData);
+  }, [komponents]);
+
   const renderCode = (codeBlocks: any[]) =>
     codeBlocks.map((block) => block.children.map((child: any) => child.text).join('\n')).join('\n');
   const renderDescription = (description: string) => {
@@ -71,10 +78,10 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
 
   return (
     <div className={`container ${styles.articles}`}>
-      {komponents.map((komp) => (
+      {sortedKomponents.map((komp) => (
         <article key={komp.id}>
           <h2>
-            <Anchor href={`/article/${komp.id}`}>
+            <Anchor href={`/article/${komp.id}`} scroll={false} shallow={true}>
               <span lang="ko">{komp.attributes.subject}</span>
               {komp.attributes.subjectEng && <span lang="en">Using higher-order components</span>}
             </Anchor>

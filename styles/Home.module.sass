@@ -6,6 +6,33 @@
   gap: rem(52)
   padding: rem(50) 0 rem(150)
 
+  .backword
+    display: flex
+    align-items: center
+    gap: rem(7)
+    background-color: transparent
+
+    &:hover, &:focus
+      i
+        transform: translateX(rem(-3))
+
+      span
+        color: $hex-accent
+        letter-spacing: 0.07em
+
+    i
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      display: block
+      width: rem(14)
+      height: rem(14)
+
+    span
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      font-size: rem(16)
+      font-weight: 700
+      line-height: 1
+      color: $hex-black
+
   article
     display: flex
     flex-direction: column
@@ -27,7 +54,6 @@
         gap: rem(7)
 
         span
-          transition: all .4s cubic-bezier(.4,0,.2,1)
           font-weight: 700
           line-height: 1
 
@@ -38,6 +64,10 @@
           &[lang="en"]
             font-size: rem(24)
             color: $hex-light
+
+      a
+        span
+          transition: all .4s cubic-bezier(.4,0,.2,1)
 
         &:hover, &:focus
           span
@@ -188,6 +218,47 @@
             &[lang="en"]
               font-size: rem(14)
               color: $hex-light
+
+  .return
+    transition: all .4s cubic-bezier(.4,0,.2,1)
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: rem(7)
+    background-color: transparent
+    border: rem(2) solid $hex-dark
+    border-radius: rem(5)
+    height: rem(37)
+
+    &:hover, &:focus
+      border-color: $hex-accent
+      background-color: $hex-accent
+
+      svg
+        transform: translateX(rem(-3))
+
+        path
+          fill: $hex-white
+
+      span
+        color: $hex-white
+        letter-spacing: 0.07em
+
+    svg
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      display: block
+      width: rem(14)
+      height: rem(14)
+
+      path
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+
+    span
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      font-size: rem(16)
+      font-weight: 700
+      line-height: 1
+      color: $hex-black
 
 .loading
   display: flex
