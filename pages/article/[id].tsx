@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { icons } from '@/icons';
+import Seo from '@/components/Seo';
 import FormatDate from '@/components/FormatDate';
 import SyntaxHighlighter from '@/components/SyntaxHighlighter';
-import styles from '@/styles/Home.module.sass';
 import Anchor from '@/components/Anchor';
+import styles from '@/styles/Home.module.sass';
 
 interface Article {
   id: number;
@@ -109,6 +110,8 @@ export default function Article() {
     commentsElement.current?.appendChild(scriptElement);
   }, []);
 
+  const timestamp = Date.now();
+
   return (
     <div className={`container ${styles.articles}`}>
       {!article ? (
@@ -118,6 +121,13 @@ export default function Article() {
         </p>
       ) : (
         <>
+          <Seo
+            pageTitle={`${article.attributes.subject} ${
+              article.attributes.subjectEng && article.attributes.subjectEng
+            }`}
+            pageDescription={`${article.attributes.description}`}
+            pageImg={`https://komponent.dev1stud.io/og-image.webp?ts=${timestamp}`}
+          />
           {scrollPosition ? (
             <button onClick={handleBackwardClick} className={styles.backword}>
               <Backward />

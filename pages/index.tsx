@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import styled from '@emotion/styled';
 import { icons } from '@/icons';
+import Seo from '@/components/Seo';
 import Anchor from '@/components/Anchor';
 import FormatDate from '@/components/FormatDate';
 import SyntaxHighlighter from '@/components/SyntaxHighlighter';
@@ -76,8 +77,11 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
     });
   };
 
+  const timestamp = Date.now();
+
   return (
     <div className={`container ${styles.articles}`}>
+      <Seo pageImg={`https://komponent.dev1stud.io/og-image.webp?ts=${timestamp}`} />
       {sortedKomponents.map((komp) => (
         <article key={komp.id}>
           <h2>
