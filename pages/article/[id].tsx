@@ -1,32 +1,25 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { icons } from '@/icons';
-import Anchor from '@/components/Anchor';
 import FormatDate from '@/components/FormatDate';
 import SyntaxHighlighter from '@/components/SyntaxHighlighter';
 import styles from '@/styles/Home.module.sass';
 
-interface Komponent {
-  id: number;
+interface Article {
   langName: string;
-  attributes: {
-    subject: string;
-    subjectEng?: string;
-    description: string;
-    componentCodeLanguage: string;
-    componentCode: any[];
-    componentCodeEng?: any[];
-    useCodeLanguage: string;
-    useCode: any[];
-    useCodeEng?: any[];
-    language: string;
-    useTypeScript: boolean;
-    createdAt: string;
-  };
-}
-
-interface HomeProps {
-  komponents: Komponent[];
+  subject: string;
+  subjectEng?: string;
+  description: string;
+  componentCodeLanguage: string;
+  componentCode: any[];
+  componentCodeEng?: any[];
+  useCodeLanguage: string;
+  useCode: any[];
+  useCodeEng?: any[];
+  language: string;
+  useTypeScript: boolean;
+  createdAt: string;
 }
 
 const Lang = styled.i<{ langName?: string }>((props) => {
@@ -48,7 +41,19 @@ const Secondary = styled.i({
   background: `url(${icons.marker.secondary}) no-repeat 50% 50%/contain`,
 });
 
-const Home: NextPage<HomeProps> = ({ komponents }) => {
+export default function Article() {
+  const router = useRouter();
+  const { id } = router.query;
+  const [article, setArticle] = useState<Article | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/article/${id}`)
+        .then((response) => response.json())
+        .then((data) => setArticle(data.data.attributes));
+    }
+  }, [id]);
+
   const renderCode = (codeBlocks: any[]) =>
     codeBlocks.map((block) => block.children.map((child: any) => child.text).join('\n')).join('\n');
   const renderDescription = (description: string) => {
@@ -71,34 +76,39 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
 
   return (
     <div className={`container ${styles.articles}`}>
-      {komponents.map((komp) => (
-        <article key={komp.id}>
+      {!article ? (
+        <p className={styles.loading}>
+          <span>코드 불러오는 중</span>
+          <i />
+        </p>
+      ) : (
+        <article>
           <h2>
-            <Anchor href={`/article/${komp.id}`}>
-              <span lang="ko">{komp.attributes.subject}</span>
-              {komp.attributes.subjectEng && <span lang="en">Using higher-order components</span>}
-            </Anchor>
+            <div>
+              <span lang="ko">{article.subject}</span>
+              {article.subjectEng && <span lang="en">Using higher-order components</span>}
+            </div>
           </h2>
           <div className={styles.summary}>
             <div className={styles.descriptions}>
               <div className={styles.date}>
-                <time dateTime={komp.attributes.createdAt}>{FormatDate(komp.attributes.createdAt)}</time>
+                <time dateTime={article.createdAt}>{FormatDate(article.createdAt)}</time>
                 <cite>@ O612</cite>
               </div>
-              <div className={styles.description}>{renderDescription(komp.attributes.description)}</div>
+              <div className={styles.description}>{renderDescription(article.description)}</div>
             </div>
             <div className={styles.languages}>
               <dl className="ss">
                 <div>
                   <dt>언어</dt>
                   <dd>
-                    <Lang langName={komp.attributes.language} />
-                    <span>{komp.attributes.language}</span>
+                    <Lang langName={article.language} />
+                    <span>{article.language}</span>
                   </dd>
                 </div>
                 <div>
                   <dt>타입스크립트 사용 여부</dt>
-                  {komp.attributes.useTypeScript ? (
+                  {article.useTypeScript ? (
                     <dd className={styles.useTypeScript}>
                       <UseTypeScript />
                       <em aria-disabled>TypeScript</em>
@@ -126,12 +136,9 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
                   </span>
                   <span lang="en">Korean</span>
                 </h4>
-                <SyntaxHighlighter
-                  code={renderCode(komp.attributes.componentCode)}
-                  language={komp.attributes.componentCodeLanguage}
-                />
+                <SyntaxHighlighter code={renderCode(article.componentCode)} language={article.componentCodeLanguage} />
               </div>
-              {komp.attributes.componentCodeEng && (
+              {article.componentCodeEng && (
                 <div className={styles.secondary}>
                   <h4>
                     <span lang="ko">
@@ -140,8 +147,8 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
                     <span lang="en">English</span>
                   </h4>
                   <SyntaxHighlighter
-                    code={renderCode(komp.attributes.componentCodeEng)}
-                    language={komp.attributes.componentCodeLanguage}
+                    code={renderCode(article.componentCodeEng)}
+                    language={article.componentCodeLanguage}
                   />
                 </div>
               )}
@@ -160,12 +167,9 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
                   </span>
                   <span lang="en">Korean</span>
                 </h4>
-                <SyntaxHighlighter
-                  code={renderCode(komp.attributes.useCode)}
-                  language={komp.attributes.useCodeLanguage}
-                />
+                <SyntaxHighlighter code={renderCode(article.useCode)} language={article.useCodeLanguage} />
               </div>
-              {komp.attributes.useCodeEng && (
+              {article.useCodeEng && (
                 <div className={styles.secondary}>
                   <h4>
                     <span lang="ko">
@@ -173,27 +177,13 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
                     </span>
                     <span lang="en">English</span>
                   </h4>
-                  <SyntaxHighlighter
-                    code={renderCode(komp.attributes.useCodeEng)}
-                    language={komp.attributes.useCodeLanguage}
-                  />
+                  <SyntaxHighlighter code={renderCode(article.useCodeEng)} language={article.useCodeLanguage} />
                 </div>
               )}
             </div>
           </div>
         </article>
-      ))}
+      )}
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/komponents`);
-  const data = await res.json();
-
-  return {
-    props: { komponents: data.data },
-  };
-};
-
-export default Home;
+}

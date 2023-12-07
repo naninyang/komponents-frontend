@@ -1,6 +1,6 @@
 @import './designSystem'
 
-.home
+.articles
   display: flex
   flex-direction: column
   gap: rem(52)
@@ -21,20 +21,31 @@
       display: none
 
     h2
-      display: flex
-      flex-direction: column
+      a, div
+        display: flex
+        flex-direction: column
+        gap: rem(7)
 
-      span
-        font-weight: 700
+        span
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          font-weight: 700
+          line-height: 1
 
-        &[lang="ko"]
-          font-size: rem(36)
-          line-height: 1.52777778
+          &[lang="ko"]
+            font-size: rem(36)
+            color: $hex-default
 
-        &[lang="en"]
-          font-size: rem(24)
-          font-weight: 1.54166667
-          color: $hex-light
+          &[lang="en"]
+            font-size: rem(24)
+            color: $hex-light
+
+        &:hover, &:focus
+          span
+            &[lang="ko"]
+              color: $hex-accent
+
+            &[lang="en"]
+              color: $hex-dark
 
     .summary
       display: flex
@@ -52,7 +63,7 @@
 
           p
             font-size: rem(16)
-            line-height: 1.5625
+            line-height: 1.27
 
         .date
           time, cite
@@ -177,3 +188,50 @@
             &[lang="en"]
               font-size: rem(14)
               color: $hex-light
+
+.loading
+  display: flex
+  justify-content: center
+  align-items: center
+  flex: 1
+
+  span
+    +screen-reader-only
+
+  i
+    display: block
+    width: rem(50)
+    height: rem(50)
+    border: rem(5) solid transparent
+    border-radius: 50%
+    animation: spin 4s cubic-bezier(.4,0,.2,1) infinite
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+    border-right-color: $hex-accent
+    border-bottom-color: $hex-accent
+
+  25%
+    transform: rotate(360deg)
+    border: rem(5) solid transparent
+    border-bottom-color: $hex-accent
+    border-left-color: $hex-accent
+
+  50%
+    transform: rotate(720deg)
+    border: rem(5) solid transparent
+    border-top-color: $hex-accent
+    border-left-color: $hex-accent
+
+  75%
+    transform: rotate(1080deg)
+    border: rem(5) solid transparent
+    border-top-color: $hex-accent
+    border-right-color: $hex-accent
+
+  100%
+    transform: rotate(1440deg)
+    border: rem(5) solid transparent
+    border-right-color: $hex-accent
+    border-bottom-color: $hex-accent
