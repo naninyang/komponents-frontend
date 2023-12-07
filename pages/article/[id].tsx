@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { icons } from '@/icons';
@@ -96,6 +96,18 @@ export default function Article() {
       }
     });
   };
+
+  const commentsElement = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const scriptElement = document.createElement('script');
+    scriptElement.async = true;
+    scriptElement.src = 'https://utteranc.es/client.js';
+    scriptElement.setAttribute('repo', 'naninyang/komponents-frontend');
+    scriptElement.setAttribute('issue-term', 'pathname');
+    scriptElement.setAttribute('theme', 'github-light');
+    scriptElement.setAttribute('crossorigin', 'anonymous');
+    commentsElement.current?.appendChild(scriptElement);
+  }, []);
 
   return (
     <div className={`container ${styles.articles}`}>
@@ -248,6 +260,7 @@ export default function Article() {
               <span className="ss">뒤로가기.back</span>
             </Anchor>
           )}
+          <div ref={commentsElement} />
         </>
       )}
     </div>
