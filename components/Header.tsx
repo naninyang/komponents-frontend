@@ -1,27 +1,27 @@
-import styled from "@emotion/styled";
-import Anchor from "./Anchor";
-import { rem, funcMixIn } from "@/styles/designSystem";
-import { images } from "@/images";
+import styled from '@emotion/styled';
+import Anchor from './Anchor';
+import { rem, funcMixIn } from '@/styles/designSystem';
+import { icons } from '@/icons';
 
 const Container = styled.header({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   padding: `0 ${rem(25)}`,
   height: rem(52),
-  "& .header": {
-    display: "flex",
-    "& h1, & a": {
-      display: "block",
+  '& .header': {
+    display: 'flex',
+    '& h1, & a': {
+      display: 'block',
       width: rem(105),
       height: rem(25),
     },
-    "& h1": {
-      "& span": {
+    '& h1': {
+      '& span': {
         ...funcMixIn.screenReaderOnly,
       },
-      "& i": {
-        display: "block",
+      '& i': {
+        display: 'block',
         width: rem(105),
         height: rem(25),
       },
@@ -30,15 +30,15 @@ const Container = styled.header({
 });
 
 const Koponents = styled.i({
-  background: `url(${images.logo.typo}) no-repeat 50% 50%/contain`,
+  background: `url(${icons.logo.typo}) no-repeat 50% 50%/contain`,
 });
 
 export default function Header() {
   return (
     <Container>
-      <div className='header container'>
+      <div className="header container">
         <h1>
-          <Anchor href='/'>
+          <Anchor href="/">
             <span>komponents</span>
             <Koponents />
           </Anchor>
