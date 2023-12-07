@@ -56,6 +56,16 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
 
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const registInit = async () => {
+        const registration = await navigator.serviceWorker.register('/service-worker.js');
+        registration.waiting?.postMessage('SKIP_WAITING');
+      };
+      registInit();
+    }
+  }, []);
+
   return (
     <>
       <style jsx global>
