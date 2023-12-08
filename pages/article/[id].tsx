@@ -110,8 +110,6 @@ export default function Article() {
     commentsElement.current?.appendChild(scriptElement);
   }, []);
 
-  const timestamp = Date.now();
-
   return (
     <div className={`container ${styles.articles}`}>
       {!article ? (
@@ -126,7 +124,7 @@ export default function Article() {
               article.attributes.subjectEng && article.attributes.subjectEng
             }`}
             pageDescription={`${article.attributes.description}`}
-            pageImg={`https://komponent.dev1stud.io/og-image.webp?ts=${timestamp}`}
+            pageImg={`https://localhost:3001/api/og?articleId=${article.id}`}
           />
           {scrollPosition ? (
             <button onClick={handleBackwardClick} className={styles.backword}>
