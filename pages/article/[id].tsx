@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { icons } from '@/icons';
@@ -50,10 +51,8 @@ const Secondary = styled.i({
   background: `url(${icons.marker.secondary}) no-repeat 50% 50%/contain`,
 });
 
-export default function Article() {
+const Article = ({ article }: { article: Article | null }) => {
   const router = useRouter();
-  const { id } = router.query;
-  const [article, setArticle] = useState<Article | null>(null);
   const [scrollPosition, setScrollPosition] = useState<string | null>(null);
 
   useEffect(() => {
@@ -69,14 +68,6 @@ export default function Article() {
       router.back();
     }
   };
-
-  useEffect(() => {
-    if (id) {
-      fetch(`/api/article/${id}`)
-        .then((response) => response.json())
-        .then((data) => setArticle(data.data));
-    }
-  }, [id]);
 
   const renderCode = (codeBlocks: any[]) =>
     codeBlocks.map((block) => block.children.map((child: any) => child.text).join('\n')).join('\n');
@@ -273,4 +264,39 @@ export default function Article() {
       )}
     </div>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const articleId = context.params?.id;
+  let article = null;
+
+  if (articleId) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/article/${articleId}`);
+    const articleData = await response.json();
+    article = articleData.data;
+  }
+
+  if (!article) {
+    return {
+      props: {
+        article: null,
+      },
+    };
+  }
+
+  return {
+    props: {
+      article,
+    },
+    revalidate: 1,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
+
+export default Article;

@@ -199,8 +199,8 @@ const Home: NextPage<HomeProps> = ({ komponents }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/komponents`);
-  const data = await res.json();
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/komponents`);
+  const data = await response.json();
 
   return {
     props: { komponents: data.data },
