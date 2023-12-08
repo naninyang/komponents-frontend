@@ -2,6 +2,10 @@
 
 K-components
 
+본 프로젝트는 https://develog.dev1stud.io/series/street-code-fighters 여기에서 아이디어를 얻었습니다.
+
+> 나의 아이디어, 영감의 뮤즈는 내 자신이다.
+
 ## 사용된 주요기술
 
 ### Frontend
