@@ -13,9 +13,7 @@ export const config = {
   runtime: 'edge',
 };
 
-const font = fetch(
-  new URL('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Bold.woff', import.meta.url),
-).then((res) => res.arrayBuffer());
+const font = fetch(new URL('../../fonts/GowunBatang-Bold.woff2', import.meta.url)).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!req.url) {
