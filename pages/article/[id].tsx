@@ -203,12 +203,12 @@ const Article = ({ article }: { article: Article | null }) => {
                 )}
               </div>
               <div className={styles.primary}>
-                <h2>
+                <h3>
                   <span lang="ko">
                     <Primary /> 사용방법
                   </span>
                   <span lang="en">How to use</span>
-                </h2>
+                </h3>
                 <div className={styles.secondary}>
                   <h4>
                     <span lang="ko">
