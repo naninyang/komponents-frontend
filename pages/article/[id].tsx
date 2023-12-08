@@ -124,7 +124,7 @@ export default function Article() {
               article.attributes.subjectEng && article.attributes.subjectEng
             }`}
             pageDescription={`${article.attributes.description}`}
-            pageImg={`https://localhost:3001/api/og?articleId=${article.id}`}
+            pageImg={`${process.env.NEXT_PUBLIC_API_URL}/api/og?articleId=${article.id}`}
           />
           {scrollPosition ? (
             <button onClick={handleBackwardClick} className={styles.backword}>
