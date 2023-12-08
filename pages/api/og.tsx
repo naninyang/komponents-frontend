@@ -41,18 +41,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     (
       <div
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: '#ffffff',
           backgroundImage:
             'radial-gradient(circle at 25px 25px, lightgray 2%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
           backgroundSize: '100px 100px',
-          height: '100%',
-          width: '100%',
-          textAlign: 'center',
           alignContent: 'center',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
+          position: 'relative',
           display: 'flex',
+          width: '100%',
+          height: '100%',
+          textAlign: 'center',
           fontSize: '52px',
           lineHeight: 1,
         }}
@@ -69,6 +70,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         {articleData.data.attributes.subjectEng && (
           <span style={{ fontSize: '37px', color: '#9DA19B' }}>{articleData.data.attributes.subjectEng}</span>
         )}
+        <p
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            margin: 0,
+            padding: '15px',
+            backgroundColor: '#DA3832',
+            color: '#ffffff',
+            display: 'flex',
+            flexDirection: 'column',
+            fontSize: '32px',
+          }}
+        >
+          {articleData.data.attributes.description.split('\n').map((line: any, index: number) => (
+            <span key={index}>{line}</span>
+          ))}
+        </p>
       </div>
     ),
     {

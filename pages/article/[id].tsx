@@ -3,7 +3,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { icons } from '@/icons';
-import Seo from '@/components/Seo';
+import Seo, { SiteTitle } from '@/components/Seo';
 import FormatDate from '@/components/FormatDate';
 import SyntaxHighlighter from '@/components/SyntaxHighlighter';
 import Anchor from '@/components/Anchor';
@@ -113,7 +113,7 @@ const Article = ({ article }: { article: Article | null }) => {
           <Seo
             pageTitle={`${article.attributes.subject} ${
               article.attributes.subjectEng && article.attributes.subjectEng
-            }`}
+            }${SiteTitle}`}
             pageDescription={`${article.attributes.description}`}
             pageImg={`${process.env.NEXT_PUBLIC_API_URL}/api/og?articleId=${article.id}`}
           />
