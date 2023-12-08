@@ -38,6 +38,12 @@ const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight,
       <meta property="og:image" content={imgUrl} />
       <meta property="og:image:width" content={String(imgWidth)} />
       <meta property="og:image:height" content={String(imgHeight)} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={finTitle} />
+      <meta name="twitter:site" content={defaultTitle} />
+      <meta name="twitter:creator" content="@O612" />
+      <meta name="twitter:image" content={imgUrl} />
+      <meta name="twitter:description" content={description} />
       <link rel="canonical" href={url} />
       <link rel="alternate" href={url} hrefLang="ko-KR" />
     </Head>
