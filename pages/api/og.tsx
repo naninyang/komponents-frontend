@@ -56,6 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           textAlign: 'center',
           fontSize: '52px',
           lineHeight: 1,
+          letterSpacing: '-0.07em',
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -82,6 +83,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             display: 'flex',
             flexDirection: 'column',
             fontSize: '32px',
+            letterSpacing: '-0.07em',
           }}
         >
           {articleData.data.attributes.description.split('\n').map((line: any, index: number) => (
