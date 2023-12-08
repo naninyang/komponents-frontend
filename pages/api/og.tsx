@@ -13,8 +13,6 @@ export const config = {
   runtime: 'edge',
 };
 
-const font = fetch(new URL('../../fonts/GowunBatang-Bold.woff2', import.meta.url)).then((res) => res.arrayBuffer());
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!req.url) {
     return res.status(400).send('Invalid request');
@@ -39,7 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
   });
   const articleData = await response.json();
-  const fontData = await font;
   return new ImageResponse(
     (
       <div
@@ -77,13 +74,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     {
       width: 1200,
       height: 600,
-      fonts: [
-        {
-          name: 'Typewriter',
-          data: fontData,
-          style: 'normal',
-        },
-      ],
     },
   );
 }
