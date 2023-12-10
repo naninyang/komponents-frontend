@@ -38,4 +38,5 @@ export async function getServerSideProps({ res }) {
     props: {},
   };
 }
+
 export default SiteMap;
