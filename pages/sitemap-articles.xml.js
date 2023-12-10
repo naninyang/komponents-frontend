@@ -21,7 +21,12 @@ function SiteMap() {}
 
 export async function getServerSideProps({ res }) {
   const articleRequest = await fetch(ArticleAPI);
-  const articles = await articleRequest.json();
+  const articleResponse = await articleRequest.json();
+  const articles = articleResponse.data;
+
+  if (!Array.isArray(articles)) {
+    throw new Error('Invalid data format');
+  }
 
   const sitemap = generateSiteMap(articles);
 
@@ -33,5 +38,4 @@ export async function getServerSideProps({ res }) {
     props: {},
   };
 }
-
 export default SiteMap;
