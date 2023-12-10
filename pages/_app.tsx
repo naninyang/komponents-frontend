@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app';
 import { Gowun_Batang, Lato } from 'next/font/google';
+import Script from 'next/script';
 import styled from '@emotion/styled';
+import { GA_TRACKING_ID, pageview } from '@/utils/gtag';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { rem } from '@/styles/designSystem';
@@ -66,8 +68,30 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
 
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on('hashChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('hashChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_TRACKING_ID}', {
+            page_path: window.location.pathname,
+          });
+        `}
+      </Script>
       <style jsx global>
         {`
           .ss {
