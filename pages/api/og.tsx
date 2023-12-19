@@ -54,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           width: '100%',
           height: '100%',
           textAlign: 'center',
-          fontSize: '52px',
+          fontSize: '47px',
           lineHeight: 1,
           letterSpacing: '-0.07em',
         }}
@@ -77,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             top: 0,
             left: 0,
             margin: 0,
-            padding: '15px',
+            padding: '15px 25px 15px 50px',
             backgroundColor: '#DA3832',
             color: '#ffffff',
             display: 'flex',
