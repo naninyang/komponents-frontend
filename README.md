@@ -17,6 +17,7 @@ K-components
 - date-fns
 - react-responsive
 - Prism.js
+- Vercel serverless
 
 ### Backend
 
