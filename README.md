@@ -27,7 +27,7 @@ K-components
 - AWS S3 (세팅만 하고 사용 안함)
 - PM2
 - NginX
-- Github Actions (Workflows)
+- Github Actions
 
 ## Troubleshooting
 
