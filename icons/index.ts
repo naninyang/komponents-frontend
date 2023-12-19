@@ -1,5 +1,5 @@
-type LangIcons = Record<string, any>;
 type LogoIcons = { typo: any };
+type LangIcons = Record<string, any>;
 type MarkerIcons = { primary: any; secondary: any };
 type MiscIcons = { back: any };
 
@@ -14,6 +14,7 @@ export const icons: { logo: LogoIcons; lang: LangIcons; marker: MarkerIcons; mis
     NextJS: require('./lang/nextjs.svg'),
     NodeJS: require('./lang/nodejs.svg'),
     Nuxt: require('./lang/nuxt.svg'),
+    Python: require('./lang/python.svg'),
     ReactJS: require('./lang/react.svg'),
     Svelte: require('./lang/svelte.svg'),
     TypeScript: require('./lang/ts.svg'),
