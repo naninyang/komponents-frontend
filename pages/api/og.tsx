@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ImageResponse } from '@vercel/og';
 import { Gowun_Batang } from 'next/font/google';
-import { URL } from 'url';
-import { parse, URLSearchParams } from 'url';
+import { parse } from 'url';
 
 const batang = Gowun_Batang({
   weight: ['400', '700'],

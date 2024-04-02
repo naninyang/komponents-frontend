@@ -1,91 +1,122 @@
 @import './designSystem'
 
-.articles
-  display: flex
-  flex-direction: column
-  gap: rem(52)
-  padding: rem(50) 0 rem(150)
+.container
+  padding: rem(27) 0 rem(52)
 
-  .backword
+  .komponents
     display: flex
-    align-items: center
-    gap: rem(7)
-    background-color: transparent
+    padding: rem(5) 0
+    transition: all .4s cubic-bezier(.4,0,.2,1)
 
-    &:hover, &:focus
-      i
-        transform: translateX(rem(-3))
+    +mq(maxExtraSmall)
+      flex-direction: column
 
-      span
-        color: $hex-accent
-        letter-spacing: 0.07em
+    +mq(minSmall)
+      flex-wrap: wrap
 
-    i
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      display: block
-      width: rem(14)
-      height: rem(14)
-
-    span
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      font-size: rem(16)
-      font-weight: 700
-      line-height: 1
-      color: $hex-black
-
-  article
+  li
     display: flex
-    flex-direction: column
-    gap: rem(52)
+    padding: rem(10)
 
-    &::after
-      content: ''
-      display: block
-      height: rem(1)
-      background-color: $hex-light
+    +mq(minSmall)
+      width: 50%
 
-    &:last-of-type::after
-      display: none
-
-    h2
-      a, div
-        display: flex
-        flex-direction: column
-        gap: rem(7)
-
-        span
-          font-weight: 700
-          line-height: 1
-
-          &[lang="ko"]
-            font-size: rem(36)
-            color: $hex-default
-
-          &[lang="en"]
-            font-size: rem(24)
-            color: $hex-light
-
-      a
-        span
-          transition: all .4s cubic-bezier(.4,0,.2,1)
-
-        &:hover, &:focus
-          span
-            &[lang="ko"]
-              color: $hex-accent
-
-            &[lang="en"]
-              color: $hex-dark
-
-    .summary
+    a
+      transition: all .4s cubic-bezier(.4,0,.2,1)
       display: flex
       flex-direction: column
-      gap: rem(27)
+      gap: rem(7)
+      border: 1px solid rgba($hex-dark, .2)
+      border-radius: rem(3)
+      overflow: hidden
+      width: 100%
 
-      .descriptions
+      .subject
+        aspect-ratio: 1920 / 1080
+        background-color: $hex-white
+        background-image: radial-gradient(circle at rem(25) rem(25), lightgray 2%, transparent 0%), radial-gradient(circle at rem(75) rem(75), lightgray 2%, transparent 0%)
+        background-size: rem(100) rem(100)
         display: flex
         flex-direction: column
+        justify-content: center
+        align-items: center
         gap: rem(7)
+        border-bottom: 1px solid rgba($hex-dark, .2)
+        padding: 0 rem(27)
+        text-align: center
+
+        span
+          letter-spacing: -0.07em
+          line-height: 1.16666667
+
+          &[lang="ko"]
+            font-size: rem(24)
+            font-weight: 800
+            color: $hex-black
+
+          &[lang="en"]
+            font-size: rem(14)
+            color: $hex-dark
+
+      .summary
+        display: flex
+        flex-direction: column
+        flex-grow: 1
+        gap: rem(12)
+        padding: rem(12)
+
+        .languages
+          div
+            height: rem(16)
+
+          dl
+            display: flex
+
+          div
+            display: flex
+
+          dt
+            +screen-reader-only
+
+          dd
+            display: flex
+            gap: rem(2)
+
+            &.noTS
+              +screen-reader-only
+
+            &.useTypeScript
+              &::before
+                content: 'with.'
+                font-size: rem(14)
+                padding: 0 rem(3) 0 rem(12)
+                color: $hex-dark
+
+              i
+                display: block
+                width: rem(16)
+                height: rem(16)
+
+              em
+                padding-left: rem(3)
+                font-size: rem(14)
+                font-weight: 900
+                font-style: normal
+                color: #3178C6
+
+              span
+                +screen-reader-only
+
+            i
+              display: block
+              width: rem(16)
+              height: rem(16)
+
+            span
+              transform: translateY(rem(-2))
+              font-size: rem(16)
+              font-weight: 900
+              color: $hex-black
 
         .description
           display: flex
@@ -94,215 +125,21 @@
           p
             font-size: rem(16)
             line-height: 1.27
+            color: $hex-default
 
         .date
+          display: flex
+          align-items: flex-end
+          flex-grow: 1
+          gap: rem(4)
+
           time, cite
-            font-size: rem(14)
-            line-height: 1
+            font-size: rem(12)
+            color: $hex-dark
 
-          time::after
-            content: '•'
-            padding: 0 rem(5)
-            color: $hex-light
-
-      .languages
-        div
-          height: rem(16)
-
-        dl
-          display: flex
-
-        div
-          display: flex
-
-        dt
-          +screen-reader-only
-
-        dd
-          display: flex
-          gap: rem(2)
-
-          &.noTS
-            +screen-reader-only
-
-          &.useTypeScript
-            &::before
-              content: 'with.'
-              font-size: rem(14)
-              padding: 0 rem(3) 0 rem(12)
-
-            i
-              display: block
-              width: rem(16)
-              height: rem(16)
-
-            em
-              padding-left: rem(3)
-              font-size: rem(14)
-              font-weight: 900
-              font-style: normal
-              color: #3178C6
-
-            span
-              +screen-reader-only
-
-          i
-            display: block
-            width: rem(16)
-            height: rem(16)
-
-          span
-            transform: translateY(rem(-2))
-            font-size: rem(16)
-            font-weight: 900
-            color: $hex-black
-
-    .components
-      display: flex
-      flex-direction: column
-      gap: rem(27)
-
-      .primary
-        display: flex
-        flex-direction: column
-
-        h3
-          display: flex
-          align-items: flex-end
-          gap: rem(17)
-
-          span
-            font-weight: 700
-            line-height: 1
-
-            &[lang="ko"]
-              display: flex
-              align-items: flex-end
-              gap: rem(7)
-              font-size: rem(24)
-
-              i
-                display: block
-                width: rem(5)
-                height: rem(20)
-
-            &[lang="en"]
-              font-size: rem(16)
-              color: $hex-light
-
-      .secondary
-        display: flex
-        flex-direction: column
-        padding-top: rem(17)
-
-        h4
-          display: flex
-          align-items: flex-end
-          gap: rem(7)
-
-          span
-            font-weight: 400
-            line-height: 1
-
-            &[lang="ko"]
-              display: flex
-              align-items: flex-end
-              gap: rem(5)
-              font-size: rem(20)
-
-              i
-                display: block
-                width: rem(8)
-                height: rem(18)
-
-            &[lang="en"]
-              font-size: rem(14)
-              color: $hex-light
-
-  .return
-    transition: all .4s cubic-bezier(.4,0,.2,1)
-    display: flex
-    justify-content: center
-    align-items: center
-    gap: rem(7)
-    background-color: transparent
-    border: rem(2) solid $hex-dark
-    border-radius: rem(5)
-    height: rem(52)
-
-    &:hover, &:focus
-      border-color: $hex-accent
-      background-color: $hex-accent
-
-      svg
-        transform: translateX(rem(-3))
-
-        path
-          fill: $hex-white
-
-      span
-        color: $hex-white
-        letter-spacing: 0.07em
-
-    svg
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      display: block
-      width: rem(14)
-      height: rem(14)
-
-      path
-        transition: all .4s cubic-bezier(.4,0,.2,1)
-
-    span
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      font-size: rem(16)
-      font-weight: 700
-      line-height: 1
-      color: $hex-black
-
-.loading
-  display: flex
-  justify-content: center
-  align-items: center
-  flex: 1
-
-  span
-    +screen-reader-only
-
-  i
-    display: block
-    width: rem(50)
-    height: rem(50)
-    border: rem(5) solid transparent
-    border-radius: 50%
-    animation: spin 4s cubic-bezier(.4,0,.2,1) infinite
-
-@keyframes spin
-  0%
-    transform: rotate(0deg)
-    border-right-color: $hex-accent
-    border-bottom-color: $hex-accent
-
-  25%
-    transform: rotate(360deg)
-    border: rem(5) solid transparent
-    border-bottom-color: $hex-accent
-    border-left-color: $hex-accent
-
-  50%
-    transform: rotate(720deg)
-    border: rem(5) solid transparent
-    border-top-color: $hex-accent
-    border-left-color: $hex-accent
-
-  75%
-    transform: rotate(1080deg)
-    border: rem(5) solid transparent
-    border-top-color: $hex-accent
-    border-right-color: $hex-accent
-
-  100%
-    transform: rotate(1440deg)
-    border: rem(5) solid transparent
-    border-right-color: $hex-accent
-    border-bottom-color: $hex-accent
+          time
+            &::after
+              content: '•'
+              padding-left: rem(4)
+              font-size: rem(12)
+              color: $hex-dark

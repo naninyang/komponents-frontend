@@ -22,6 +22,8 @@ import 'prismjs/themes/prism-twilight.min.css';
 type SyntaxHighlighterProps = {
   code: string;
   language: string;
+  showlineNumbers?: boolean;
+  lineHighlights?: number[];
 };
 
 const SyntaxHighlighter: React.FC<SyntaxHighlighterProps> = ({ code, language }) => {

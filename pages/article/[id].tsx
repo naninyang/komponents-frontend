@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
@@ -7,7 +7,7 @@ import Seo, { SiteTitle } from '@/components/Seo';
 import FormatDate from '@/components/FormatDate';
 import SyntaxHighlighter from '@/components/SyntaxHighlighter';
 import Anchor from '@/components/Anchor';
-import styles from '@/styles/Home.module.sass';
+import styles from '@/styles/Article.module.sass';
 
 interface Article {
   id: number;
@@ -53,19 +53,12 @@ const Secondary = styled.i({
 
 const Article = ({ article }: { article: Article | null }) => {
   const router = useRouter();
-  const [scrollPosition, setScrollPosition] = useState<string | null>(null);
-
-  useEffect(() => {
-    const savedPosition = sessionStorage.getItem('scrollPosition_' + router.asPath);
-    setScrollPosition(savedPosition);
-  }, [router.asPath]);
-
-  let savedScrollPosition;
-
-  const handleBackwardClick = () => {
-    const savedScrollPosition = sessionStorage.getItem('scrollPosition_' + router.asPath);
-    if (savedScrollPosition) {
-      router.back();
+  const previousPageHandler = () => {
+    const previousPage = sessionStorage.getItem('location');
+    if (previousPage) {
+      router.push(`${previousPage}`);
+    } else {
+      router.push('/');
     }
   };
 
@@ -91,6 +84,9 @@ const Article = ({ article }: { article: Article | null }) => {
 
   const commentsElement = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const existingScript = document.querySelector('script[src="https://utteranc.es/client.js"]');
+    if (existingScript) return;
+
     const scriptElement = document.createElement('script');
     scriptElement.async = true;
     scriptElement.src = 'https://utteranc.es/client.js';
@@ -117,17 +113,10 @@ const Article = ({ article }: { article: Article | null }) => {
             pageDescription={`${article.attributes.description}`}
             pageImg={`${process.env.NEXT_PUBLIC_API_URL}/api/og?articleId=${article.id}`}
           />
-          {scrollPosition ? (
-            <button onClick={handleBackwardClick} className={styles.backword}>
-              <Backward />
-              <span className="ss">뒤로가기.back</span>
-            </button>
-          ) : (
-            <Anchor href="/" className={styles.backword}>
-              <Backward />
-              <span className="ss">뒤로가기.back</span>
-            </Anchor>
-          )}
+          <button onClick={previousPageHandler} type="button" className={styles.backword}>
+            <Backward />
+            <span className="ss">뒤로가기.back</span>
+          </button>
           <article>
             <h2>
               <div>
@@ -238,27 +227,15 @@ const Article = ({ article }: { article: Article | null }) => {
               </div>
             </div>
           </article>
-          {scrollPosition ? (
-            <button onClick={handleBackwardClick} className={styles.return}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.0003 5.3418C9.74441 5.3418 9.48825 5.44122 9.29325 5.63672L3.637 11.293C3.246 11.684 3.246 12.317 3.637 12.707L9.29325 18.3633C9.68425 18.7543 10.3173 18.7543 10.7073 18.3633L10.7933 18.2773C11.1843 17.8863 11.1843 17.2533 10.7933 16.8633L6.92997 13H20.0003C20.5523 13 21.0003 12.552 21.0003 12C21.0003 11.448 20.5523 11 20.0003 11H6.92997L10.7933 7.13672C11.1843 6.74572 11.1843 6.11266 10.7933 5.72266L10.7073 5.63672C10.5118 5.44122 10.2562 5.3418 10.0003 5.3418Z"
-                  fill="black"
-                />
-              </svg>
-              <span className="ss">뒤로가기.back</span>
-            </button>
-          ) : (
-            <Anchor href="/" className={styles.return}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.0003 5.3418C9.74441 5.3418 9.48825 5.44122 9.29325 5.63672L3.637 11.293C3.246 11.684 3.246 12.317 3.637 12.707L9.29325 18.3633C9.68425 18.7543 10.3173 18.7543 10.7073 18.3633L10.7933 18.2773C11.1843 17.8863 11.1843 17.2533 10.7933 16.8633L6.92997 13H20.0003C20.5523 13 21.0003 12.552 21.0003 12C21.0003 11.448 20.5523 11 20.0003 11H6.92997L10.7933 7.13672C11.1843 6.74572 11.1843 6.11266 10.7933 5.72266L10.7073 5.63672C10.5118 5.44122 10.2562 5.3418 10.0003 5.3418Z"
-                  fill="black"
-                />
-              </svg>
-              <span className="ss">뒤로가기.back</span>
-            </Anchor>
-          )}
+          <button onClick={previousPageHandler} type="button" className={styles.return}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.0003 5.3418C9.74441 5.3418 9.48825 5.44122 9.29325 5.63672L3.637 11.293C3.246 11.684 3.246 12.317 3.637 12.707L9.29325 18.3633C9.68425 18.7543 10.3173 18.7543 10.7073 18.3633L10.7933 18.2773C11.1843 17.8863 11.1843 17.2533 10.7933 16.8633L6.92997 13H20.0003C20.5523 13 21.0003 12.552 21.0003 12C21.0003 11.448 20.5523 11 20.0003 11H6.92997L10.7933 7.13672C11.1843 6.74572 11.1843 6.11266 10.7933 5.72266L10.7073 5.63672C10.5118 5.44122 10.2562 5.3418 10.0003 5.3418Z"
+                fill="black"
+              />
+            </svg>
+            <span className="ss">뒤로가기.back</span>
+          </button>
           <div ref={commentsElement} />
         </>
       )}

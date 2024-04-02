@@ -30,35 +30,6 @@ const Container = styled.main({
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   useEffect(() => {
-    const handleRouteChangeStart = (url: string) => {
-      sessionStorage.setItem('scrollPosition_' + router.asPath, window.scrollY.toString());
-    };
-
-    const handleRouteChangeComplete = (url: string) => {
-      const savedScrollPosition = sessionStorage.getItem('scrollPosition_' + url);
-      if (savedScrollPosition) {
-        window.scrollTo(0, parseInt(savedScrollPosition));
-      } else {
-        window.scrollTo(0, 0);
-      }
-    };
-
-    router.events.on('routeChangeStart', handleRouteChangeStart);
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
-
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
-    };
-  }, [router]);
-
-  useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-  }, []);
-
-  useEffect(() => {
     if ('serviceWorker' in navigator) {
       const registInit = async () => {
         const registration = await navigator.serviceWorker.register('/service-worker.js');
