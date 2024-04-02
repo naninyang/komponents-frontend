@@ -123,9 +123,15 @@
           flex-direction: column
 
           p
-            font-size: rem(16)
             line-height: 1.27
-            color: $hex-default
+
+            &[lang="ko"]
+              font-size: rem(16)
+              color: $hex-default
+
+            &[lang="en"]
+              font-size: rem(14)
+              color: $hex-dark
 
         .date
           display: flex
